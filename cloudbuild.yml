@@ -1,0 +1,23 @@
+steps:
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    args:
+      - functions
+      - deploy
+      - hello-world
+      - '--gen2'
+      - '--region=europe-west2'
+      - '--runtime=python311'
+      - '--source=.'
+      - '--entry-point=hello_world'
+      - '--trigger-http'
+      - '--allow-unauthenticated'
+      - >-
+        --service-account=cloud-function-deployer@cv-stage-be.iam.gserviceaccount.com
+      - '--set-env-vars=PROJECT_ID=cv-staging-be'
+      - '--memory=256MB'
+      - '--timeout=60s'
+      - '--min-instances=0'
+      - '--max-instances=1'
+    entrypoint: gcloud
+options:
+  logging: CLOUD_LOGGING_ONLY
